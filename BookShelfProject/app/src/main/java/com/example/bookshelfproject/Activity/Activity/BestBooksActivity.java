@@ -1,4 +1,4 @@
-package com.example.bookshelfproject.Activity.Book;
+package com.example.bookshelfproject.Activity.Activity;
 
 import android.app.Activity;
 import android.os.Bundle;
