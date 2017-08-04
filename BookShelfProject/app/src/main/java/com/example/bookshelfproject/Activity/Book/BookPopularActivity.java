@@ -2,6 +2,7 @@ package com.example.bookshelfproject.Activity.Book;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
  * Created by filip on 8/3/2017.
  */
 
-public class BookPopularActivity extends Activity {
+public class BookPopularActivity extends AppCompatActivity {
 
     ListView listView;
     ArrayList<String> bestBooks = new ArrayList<>();
