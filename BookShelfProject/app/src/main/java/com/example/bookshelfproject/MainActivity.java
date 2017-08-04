@@ -25,7 +25,6 @@ import com.example.bookshelfproject.Activity.Book.BookPopularActivity;
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, BookPopularActivity.class));
-                //finish();
             }
         });
     }

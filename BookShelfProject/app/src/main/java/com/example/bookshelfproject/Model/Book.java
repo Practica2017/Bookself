@@ -23,6 +23,9 @@ public class Book {
         this.category = category;
     }
 
+    public Book() {
+    }
+
     public String getId() {
         return id;
     }
