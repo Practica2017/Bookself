@@ -5,9 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.example.bookshelfproject.R;
 
-/**
- * Created by filip on 8/4/2017.
- */
 
 public class LoginActivity extends AppCompatActivity{
     @Override
