@@ -69,6 +69,7 @@ public class BookPopularActivity extends AppCompatActivity {
     }
 
     private void readBooks(DataSnapshot dataSnapshot) {
+        //test 123iulia  potato
         for (DataSnapshot ds : dataSnapshot.getChildren()) {
             int i = 1;
             Book book = new Book();
