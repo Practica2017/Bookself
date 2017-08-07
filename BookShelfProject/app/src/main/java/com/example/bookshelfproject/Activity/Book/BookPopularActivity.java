@@ -21,6 +21,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by filip on 8/3/2017.
@@ -29,58 +30,58 @@ import java.util.ArrayList;
 public class BookPopularActivity extends AppCompatActivity {
 
     private ListView listView;
-    private ArrayList<String> bestBooks = new ArrayList<>();
-    private ArrayList<Book> bestBooksBook = new ArrayList<>();
+    private ArrayList<String> bookTitles = new ArrayList<>();
+    private List<Book> bestBooks = new ArrayList<>();
     private ArrayAdapter adapter;
 
-    private DatabaseReference mDatabase;
-
+    private FirebaseDatabase database;
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.best_books);
+        database = FirebaseDatabase.getInstance();
+        databaseReference = database.getReference();
 
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        /*Book bookTest = new Book(1,"Moara cu Noroc","Ioan Slavici",5,10,"Best book ever","Drama");
+        databaseReference.child("books").child(bookTest.getId()+"").setValue(bookTest);*//*
+        Book bookTest1 = new Book(1,"Moara cu Noroc","Ioan Slavici",5,10,"Best book ever","Drama");
+        databaseReference.child("books").child(bookTest1.getId()+"").setValue(bookTest1);
+        Book bookTest2 = new Book(3,"Fram ursul polar","Ioan Slavici",5,10,"Best book ever","Drama");
+        databaseReference.child("books").child(bookTest2.getId()+"").setValue(bookTest2);
+        Book bookTest3 = new Book(4,"Amintiri din copilarie","Ioan Slavici",5,10,"Best book ever","Drama");
+        databaseReference.child("books").child(bookTest3.getId()+"").setValue(bookTest3);
+        Book bookTest4 = new Book(5,"Ion","Ioan Slavici",5,10,"Best book ever","Drama");
+        databaseReference.child("books").child(bookTest4.getId()+"").setValue(bookTest4);*/
 
-        mDatabase.child("books").child("1").addValueEventListener(new ValueEventListener() {
+        databaseReference.child("books").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Book book = new Book();
-               // book = dataSnapshot.getValue(Book.class);
-                dataSnapshot.getValue(Book.class).getTitle();
-                bestBooksBook.add(1, book);
+                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+                int i=0;
+                for (DataSnapshot child : children) {
+                    Book book = child.getValue(Book.class);
+                    bestBooks.add(i,book);
+                    i++;
+                    Log.d("my msh", "----------------------------------------title: "+book.getTitle());
+                }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+
             }
         });
 
-        //  Log.d("myTag", "This is my message" + bestBooksBook.get(1).getTitle());
-     
-        listView = (ListView) findViewById(R.id.listview);
 
-        for (int i = 0; i < 10; i++) {
-            bestBooks.add(i, "book nr " + i);
+        listView = (ListView) findViewById(R.id.listview);
+        for (int i = 0; i < bestBooks.size(); i++) {
+            bookTitles.add(i,bestBooks.get(i).getTitle());
         }
-        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, bestBooks);
+        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, bookTitles);
         listView.setAdapter(adapter);
     }
 
-    private void readBooks(DataSnapshot dataSnapshot) {
-        //test 123iulia  potato
-        for (DataSnapshot ds : dataSnapshot.getChildren()) {
-            int i = 1;
-            Book book = new Book();
-            book.setTitle(ds.child(i + "").getValue(Book.class).getTitle());
-            book.setAuthor(ds.child(i + "").getValue(Book.class).getAuthor());
-            book.setDescription(ds.child(i + "").getValue(Book.class).getDescription());
-            book.setScore(ds.child(i + "").getValue(Book.class).getScore());
-            book.setVotes(ds.child(i + "").getValue(Book.class).getVotes());
-            bestBooksBook.add(i, book);
-            i++;
-        }
-    }
 
 }

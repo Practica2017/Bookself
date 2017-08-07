@@ -5,80 +5,80 @@ package com.example.bookshelfproject.Model;
  */
 
 public class Book {
-    private String id;
-    private String title;
-    private String author;
-    private float score;
-    private int votes;
-    private String description;
-    private String category;
+    private long Id;
+    private String Title;
+    private String Author;
+    private float Score;
+    private int Votes;
+    private String Description;
+    private String Category;
 
-    public Book(String id, String title, String author, float score, int votes, String description, String category) {
-        this.id = id;
-        this.title = title;
-        this.author = author;
-        this.score = score;
-        this.votes = votes;
-        this.description = description;
-        this.category = category;
+    public Book(long Id, String Title, String Author, float Score, int Votes, String Description, String Category) {
+        this.Id = Id;
+        this.Title = Title;
+        this.Author = Author;
+        this.Score = Score;
+        this.Votes = Votes;
+        this.Description = Description;
+        this.Category = Category;
     }
 
     public Book() {
     }
 
-    public String getId() {
-        return id;
+    public long getId() {
+        return Id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setId(long Id) {
+        this.Id = Id;
     }
 
     public String getTitle() {
-        return title;
+        return Title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setTitle(String Title) {
+        this.Title = Title;
     }
 
     public String getAuthor() {
-        return author;
+        return Author;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setAuthor(String Author) {
+        this.Author = Author;
     }
 
     public float getScore() {
-        return score;
+        return Score;
     }
 
-    public void setScore(float score) {
-        this.score = score;
+    public void setScore(float Score) {
+        this.Score = Score;
     }
 
     public int getVotes() {
-        return votes;
+        return Votes;
     }
 
-    public void setVotes(int votes) {
-        this.votes = votes;
+    public void setVotes(int Votes) {
+        this.Votes = Votes;
     }
 
     public String getDescription() {
-        return description;
+        return Description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescription(String Description) {
+        this.Description = Description;
     }
 
     public String getCategory() {
-        return category;
+        return Category;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setCategory(String Category) {
+        this.Category = Category;
     }
 }
