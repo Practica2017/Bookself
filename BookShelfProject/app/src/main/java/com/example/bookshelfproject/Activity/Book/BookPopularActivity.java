@@ -46,11 +46,10 @@ public class BookPopularActivity extends AppCompatActivity {
         mDatabase.child("books").child("1").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Book book = dataSnapshot.getValue(Book.class);
-                if(book != null)
-                bestBooksBook.add(1,book);
-                else
-                    Log.d("myTag", "This is my message");
+                Book book = new Book();
+               // book = dataSnapshot.getValue(Book.class);
+                dataSnapshot.getValue(Book.class).getTitle();
+                bestBooksBook.add(1, book);
             }
 
             @Override
@@ -58,10 +57,8 @@ public class BookPopularActivity extends AppCompatActivity {
             }
         });
 
-
-
-      //  Log.d("myTag", "This is my message" + bestBooksBook.get(1).getTitle());
-
+        //  Log.d("myTag", "This is my message" + bestBooksBook.get(1).getTitle());
+     
         listView = (ListView) findViewById(R.id.listview);
 
         for (int i = 0; i < 10; i++) {
