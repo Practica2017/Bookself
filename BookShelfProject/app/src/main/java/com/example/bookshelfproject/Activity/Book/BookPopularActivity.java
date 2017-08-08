@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.example.bookshelfproject.Model.Book;
@@ -41,6 +42,18 @@ public class BookPopularActivity extends AppCompatActivity {
         setContentView(R.layout.best_books);
         database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference();
+
+        Book bookTest = new Book(1,"Moara cu Noroc","Ioan Slavici","3",10,"Best book ever","Drama");
+        databaseReference.child("books").child(bookTest.getId()+"").setValue(bookTest);
+        Book bookTest1 = new Book(2,"Adolescentul","Ioan Slavici","4",10,"Best book ever","Drama");
+        databaseReference.child("books").child(bookTest1.getId()+"").setValue(bookTest1);
+        Book bookTest2 = new Book(3,"Fram ursul polar","Ioan Slavici","5",10,"Best book ever","Drama");
+        databaseReference.child("books").child(bookTest2.getId()+"").setValue(bookTest2);
+        Book bookTest3 = new Book(4,"Amintiri din copilarie","Ioan Slavici","2",10,"Best book ever","Drama");
+        databaseReference.child("books").child(bookTest3.getId()+"").setValue(bookTest3);
+        Book bookTest4 = new Book(5,"Ion","Ioan Slavici","5",10,"Best book ever","Drama");
+        databaseReference.child("books").child(bookTest4.getId()+"").setValue(bookTest4);
+
         addBestBooks(databaseReference);
     }
 
@@ -57,7 +70,7 @@ public class BookPopularActivity extends AppCompatActivity {
     private void addBestBooks(DatabaseReference databaseReference) {
         bestBooks.clear();
         bookTitles.clear();
-        databaseReference.child("books").addValueEventListener(new ValueEventListener() {
+        databaseReference.child("books").orderByChild("score").startAt("1").endAt("5").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Iterable<DataSnapshot> children = dataSnapshot.getChildren();

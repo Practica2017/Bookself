@@ -8,12 +8,12 @@ public class Book {
     private long Id;
     private String Title;
     private String Author;
-    private float Score;
+    private String Score;
     private int Votes;
     private String Description;
     private String Category;
 
-    public Book(long Id, String Title, String Author, float Score, int Votes, String Description, String Category) {
+    public Book(long Id, String Title, String Author, String Score, int Votes, String Description, String Category) {
         this.Id = Id;
         this.Title = Title;
         this.Author = Author;
@@ -50,11 +50,11 @@ public class Book {
         this.Author = Author;
     }
 
-    public float getScore() {
+    public String getScore() {
         return Score;
     }
 
-    public void setScore(float Score) {
+    public void setScore(String Score) {
         this.Score = Score;
     }
 
