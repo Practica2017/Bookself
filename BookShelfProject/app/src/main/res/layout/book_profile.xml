@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+    <fragment
+        android:name="layout.book.BookDetailsFragment"
+        android:id="@+id/frag_details"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        ></fragment>
+    <fragment
+        android:name="layout.book.BookReviewsFragment"
+        android:id="@+id/frag_reviews"
+        android:layout_marginTop="300dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        ></fragment>
+</LinearLayout>
