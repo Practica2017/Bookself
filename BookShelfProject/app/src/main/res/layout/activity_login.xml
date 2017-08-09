@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.bookshelfproject.Activity.User.LoginActivity">
     <LinearLayout
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="8dp">
 
         <EditText
             android:layout_margin="15dp"
@@ -25,19 +29,19 @@
             android:layout_height="wrap_content" />
 
         <Button
-            android:id="@+id/buttonRegister"
+            android:id="@+id/buttonSignin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
             android:background="@android:color/darker_gray"
-            android:text="Register USer" />
+            android:text="Login" />
         <TextView
             android:layout_marginTop="17dp"
             android:textSize="17dp"
             android:textAlignment="center"
-            android:text="Already Registered? Sign In here!"
-            android:id="@+id/texViewSignIn"
+            android:text="You don't have an account? Register here."
+            android:id="@+id/texViewRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>
