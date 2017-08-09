@@ -7,15 +7,25 @@ import java.util.Date;
  */
 
 public class User {
+    private long Id;
     private String Email;
     private String Name;
 
-    public User(String email, String name) {
-        Email = email;
-        Name = name;
+    public User(long id, String email, String name) {
+        this.Id = id;
+        this.Email = email;
+        this.Name = name;
     }
 
     public User() {
+    }
+
+    public long getId() {
+        return Id;
+    }
+
+    public void setId(long id) {
+        Id = id;
     }
 
     public String getEmail() {
