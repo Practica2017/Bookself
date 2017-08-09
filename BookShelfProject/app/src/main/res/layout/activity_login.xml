@@ -16,14 +16,14 @@
 
         <EditText
             android:layout_margin="15dp"
-            android:hint="Enter your Email: "
+            android:hint="Email Address "
             android:id="@+id/editTextEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <EditText
             android:layout_margin="15dp"
             android:password="true"
-            android:hint="Enter your Password: "
+            android:hint="Password "
             android:id="@+id/editTextPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
