@@ -50,7 +50,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             userLogin();
         }if (v == textViewRegister){
             startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
-            finish();
         }
     }
 
