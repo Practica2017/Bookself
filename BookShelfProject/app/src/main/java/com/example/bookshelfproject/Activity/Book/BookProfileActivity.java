@@ -13,7 +13,7 @@ import layout.book.BookDetailsFragment;
 import layout.book.BookReviewsFragment;
 
 /**
- * Created by filip on 8/8/2017.
+ * Created by iulia on 8/8/2017.
  */
 
 public class BookProfileActivity extends AppCompatActivity{
