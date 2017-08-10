@@ -42,7 +42,7 @@ public class BookPopularActivity extends Activity {
     private ListView listView;
     private ArrayList<String> bookTitles = new ArrayList<>();
     private static List<Book> bestBooks = new ArrayList<>();
-    private ArrayAdapter adapter;
+    private ArrayAdapter<String> adapter;
     private BottomNavigationView bottomNavigationView;
 
     private FirebaseDatabase database;
@@ -93,7 +93,7 @@ public class BookPopularActivity extends Activity {
                     bookTitles.add(i, bestBooks.get(i).getTitle());
                 }
                 listView = (ListView) findViewById(R.id.listview);
-                adapter = new ArrayAdapter(BookPopularActivity.this, android.R.layout.simple_list_item_1, bookTitles);
+                adapter = new ArrayAdapter<>(BookPopularActivity.this, android.R.layout.simple_list_item_1, bookTitles);
                 listView.setAdapter(adapter);
             }
 
