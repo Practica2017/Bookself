@@ -2,23 +2,14 @@ package com.example.bookshelfproject.Activity.Book;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Adapter;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 
-import com.example.bookshelfproject.Activity.Messages.ChatActivity;
-import com.example.bookshelfproject.Activity.User.LoginActivity;
+import com.example.bookshelfproject.Activity.Messages.MessagesActivity;
 import com.example.bookshelfproject.Model.Book;
 
 import com.example.bookshelfproject.R;
@@ -30,8 +21,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import android.view.MenuItem;
 
 /**
  * Created by filip on 8/3/2017.
@@ -63,7 +52,8 @@ public class BookPopularActivity extends Activity {
                             case R.id.navigation_home:
                                 //
                             case R.id.navigation_chat:
-                                startActivity(new Intent(BookPopularActivity.this, ChatActivity.class));
+                                startActivity(new Intent(BookPopularActivity.this, MessagesActivity.class));
+
 
                         }
                         return true;

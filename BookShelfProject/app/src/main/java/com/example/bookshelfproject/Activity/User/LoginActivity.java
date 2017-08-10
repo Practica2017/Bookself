@@ -65,8 +65,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Toast.makeText(this, "Please enter a password", Toast.LENGTH_SHORT).show();
             return;
         }
-        progressDialog.setMessage("Wait...");
-        progressDialog.show();
 
         firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
@@ -79,6 +77,5 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
             }
         });
-        progressDialog.hide();
     }
 }

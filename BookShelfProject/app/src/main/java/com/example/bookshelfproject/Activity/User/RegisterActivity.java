@@ -97,11 +97,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
+
                     Toast.makeText(RegisterActivity.this, "Registered successfully", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
-                    long id = (long) rand.nextInt(1000);
-                    User user = new User(id,email,fullname);
-                    databaseReference.child("users").child(user.getId()+"").setValue(user);
+                    String key = task.getResult().getUser().getUid();
+                    User user = new User(key,email,fullname);
+                    databaseReference.child("users").child(key).setValue(user);
 
                 }else{
                     Toast.makeText(RegisterActivity.this, "Registration was not successful, please try again", Toast.LENGTH_SHORT).show();
