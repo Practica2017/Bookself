@@ -70,20 +70,24 @@ public class MessagesActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference();
 
-        // Getting the information from loged in user
-        String uid = firebaseAuth.getCurrentUser().getUid();
+
+        final String uid = firebaseAuth.getCurrentUser().getUid();
+
+
         addNewConversatons(uid);
+
+
         databaseReference.child("conversations").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Iterable<DataSnapshot> children = dataSnapshot.getChildren();
-                int i =0;
+                int i = 0;
+
                 for (DataSnapshot child : children) {
                     Conversation conversation = child.getValue(Conversation.class);
                     usersName.add(conversation.getName());
                     i++;
                 }
-
 
                 listViewUsers = (ListView) findViewById(R.id.listview);
                 adapter = new ArrayAdapter(MessagesActivity.this, android.R.layout.simple_list_item_1, usersName);
@@ -96,7 +100,14 @@ public class MessagesActivity extends AppCompatActivity {
             }
         });
 
-        
+        listViewUsers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                /*Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
+                intent.putExtra("logedin_user", uid);*/
+                Log.d("mytag","---------------------------------------------------------"+ position);
+            }
+        });
     }
 
     private void addNewConversatons(String uid) {
