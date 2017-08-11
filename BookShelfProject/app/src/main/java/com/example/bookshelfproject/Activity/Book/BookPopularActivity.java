@@ -92,5 +92,6 @@ public class BookPopularActivity extends Activity {
 
             }
         });
+
     }
 }

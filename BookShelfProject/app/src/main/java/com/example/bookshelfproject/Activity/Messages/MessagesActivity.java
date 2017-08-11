@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,7 +13,6 @@ import android.widget.ListView;
 
 import com.example.bookshelfproject.Activity.Book.BookPopularActivity;
 import com.example.bookshelfproject.Model.Conversation;
-import com.example.bookshelfproject.Model.User;
 import com.example.bookshelfproject.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -22,6 +20,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -34,6 +33,7 @@ public class MessagesActivity extends AppCompatActivity {
     private ListView listViewUsers;
     private ArrayAdapter adapter;
     private ArrayList<String> usersName = new ArrayList<>();
+    private ArrayList<Conversation> conversations = new ArrayList<>();
 
 
     private FirebaseAuth firebaseAuth;
@@ -43,7 +43,7 @@ public class MessagesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat);
+        setContentView(R.layout.activity_conversations);
 
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -70,11 +70,12 @@ public class MessagesActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference();
 
+        listViewUsers = (ListView) findViewById(R.id.listview);
 
         final String uid = firebaseAuth.getCurrentUser().getUid();
 
 
-        addNewConversatons(uid);
+        //addNewConversatons(uid);
 
 
         databaseReference.child("conversations").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -85,11 +86,11 @@ public class MessagesActivity extends AppCompatActivity {
 
                 for (DataSnapshot child : children) {
                     Conversation conversation = child.getValue(Conversation.class);
+                    conversations.add(conversation);
                     usersName.add(conversation.getName());
                     i++;
                 }
 
-                listViewUsers = (ListView) findViewById(R.id.listview);
                 adapter = new ArrayAdapter(MessagesActivity.this, android.R.layout.simple_list_item_1, usersName);
                 listViewUsers.setAdapter(adapter);
             }
@@ -103,19 +104,19 @@ public class MessagesActivity extends AppCompatActivity {
         listViewUsers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                /*Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
-                intent.putExtra("logedin_user", uid);*/
-                Log.d("mytag","---------------------------------------------------------"+ position);
+                Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
+                Gson gson = new Gson();
+                intent.putExtra("second_user", gson.toJson(conversations.get(position)));
+
+                startActivity(intent);
+               // Log.d("mytag","---------------------------------------------------------"+ conversations.get(position).getId());
             }
         });
     }
 
     private void addNewConversatons(String uid) {
-        Conversation conv = new Conversation("Hi", "sebi");
-        databaseReference.child("conversations").child(uid).child("tlobOHcZmDUDjfApe8ezIbWzkZR2").setValue(conv);
-        Conversation conv1 = new Conversation("Hi", "sebastian");
-        databaseReference.child("conversations").child(uid).child("bl8aRxBHExPRBL9yXTvMESYDwL62").setValue(conv1);
-        Conversation conv2 = new Conversation("Hi", "pusthiulica");
-        databaseReference.child("conversations").child(uid).child("oiB4sNa7aXUfb6PxzDxMHmq0Qq32").setValue(conv2);
+        Conversation conv = new Conversation("0ISLFlgTfjUZQFmWOZaqeWeKgKt2","Hi", "hector","sebi");
+        databaseReference.child("conversations").child(uid).child(conv.getId()).setValue(conv);
+
     }
 }

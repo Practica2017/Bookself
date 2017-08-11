@@ -27,6 +27,9 @@
         <activity
             android:name=".Activity.Messages.MessagesActivity"
             android:label="@string/app_name"></activity>
+        <activity
+            android:name=".Activity.Messages.ChatActivity"
+            android:label="@string/app_name"></activity>
     </application>
 
 </manifest>

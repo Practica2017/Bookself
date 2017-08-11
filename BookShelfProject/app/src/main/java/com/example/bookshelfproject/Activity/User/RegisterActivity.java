@@ -73,7 +73,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         final String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
         final String fullname = editTextFullname.getText().toString().trim();
-        final Random rand = new Random();
         if (fullname.isEmpty()) {
             Toast.makeText(this, "Please enter your name", Toast.LENGTH_SHORT).show();
             return;
