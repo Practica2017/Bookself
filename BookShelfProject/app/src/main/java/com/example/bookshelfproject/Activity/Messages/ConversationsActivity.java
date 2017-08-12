@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.bookshelfproject.Activity.Book.BookPopularActivity;
+import com.example.bookshelfproject.Activity.User.UsersActivity;
 import com.example.bookshelfproject.Model.Conversation;
 import com.example.bookshelfproject.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,7 +29,7 @@ import java.util.ArrayList;
  * Created by filip on 8/10/2017.
  */
 
-public class MessagesActivity extends AppCompatActivity {
+public class ConversationsActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
     private ListView listViewUsers;
     private ArrayAdapter adapter;
@@ -55,11 +56,16 @@ public class MessagesActivity extends AppCompatActivity {
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
                         switch (item.getItemId()) {
+                            case R.id.navigation_users:
+                                startActivity(new Intent(ConversationsActivity.this, UsersActivity.class));
+                                break;
+
                             case R.id.navigation_home:
-                                startActivity(new Intent(MessagesActivity.this, BookPopularActivity.class));
-                            case R.id.navigation_chat:
-                                //
+                                startActivity(new Intent(ConversationsActivity.this, BookPopularActivity.class));
+                                break;
+
 
                         }
                         return true;
@@ -69,29 +75,21 @@ public class MessagesActivity extends AppCompatActivity {
 
         database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference();
-
         listViewUsers = (ListView) findViewById(R.id.listview);
-
         final String uid = firebaseAuth.getCurrentUser().getUid();
-
-
-        //addNewConversatons(uid);
-
 
         databaseReference.child("conversations").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Iterable<DataSnapshot> children = dataSnapshot.getChildren();
                 int i = 0;
-
                 for (DataSnapshot child : children) {
                     Conversation conversation = child.getValue(Conversation.class);
                     conversations.add(conversation);
                     usersName.add(conversation.getName());
                     i++;
                 }
-
-                adapter = new ArrayAdapter(MessagesActivity.this, android.R.layout.simple_list_item_1, usersName);
+                adapter = new ArrayAdapter(ConversationsActivity.this, android.R.layout.simple_list_item_1, usersName);
                 listViewUsers.setAdapter(adapter);
             }
 
@@ -107,16 +105,8 @@ public class MessagesActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
                 Gson gson = new Gson();
                 intent.putExtra("second_user", gson.toJson(conversations.get(position)));
-
                 startActivity(intent);
-               // Log.d("mytag","---------------------------------------------------------"+ conversations.get(position).getId());
             }
         });
-    }
-
-    private void addNewConversatons(String uid) {
-        Conversation conv = new Conversation("0ISLFlgTfjUZQFmWOZaqeWeKgKt2","Hi", "hector","sebi");
-        databaseReference.child("conversations").child(uid).child(conv.getId()).setValue(conv);
-
     }
 }
