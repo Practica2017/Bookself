@@ -17,7 +17,6 @@ import com.example.bookshelfproject.Activity.Book.BookPopularActivity;
 import com.example.bookshelfproject.Activity.Messages.ChatActivity;
 import com.example.bookshelfproject.Activity.Messages.ConversationsActivity;
 import com.example.bookshelfproject.Model.Conversation;
-import com.example.bookshelfproject.Model.ConversationRepository;
 import com.example.bookshelfproject.Model.User;
 import com.example.bookshelfproject.R;
 import com.google.firebase.auth.FirebaseAuth;
