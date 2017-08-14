@@ -29,6 +29,7 @@
             android:label="@string/app_name"></activity>
         <activity
             android:name=".Activity.Messages.ChatActivity"
+            android:windowSoftInputMode="adjustPan"
             android:label="@string/app_name"></activity>
         <activity
             android:name=".Activity.User.UsersActivity"

@@ -36,7 +36,6 @@ public class ConversationsActivity extends AppCompatActivity {
     private ArrayList<String> usersName = new ArrayList<>();
     private ArrayList<Conversation> conversations = new ArrayList<>();
 
-
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;

@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.bookshelfproject.Activity.Messages.ConversationsActivity;
+import com.example.bookshelfproject.Activity.User.LoginActivity;
 import com.example.bookshelfproject.Activity.User.UsersActivity;
 import com.example.bookshelfproject.Model.Book;
 
@@ -44,6 +45,7 @@ public class BookPopularActivity extends Activity {
         setContentView(R.layout.best_books);
 
 
+
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.navBot);
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -57,9 +59,6 @@ public class BookPopularActivity extends Activity {
                             case R.id.navigation_chat:
                                 startActivity(new Intent(BookPopularActivity.this, ConversationsActivity.class));
                                 break;
-
-
-
                         }
                         return true;
                     }
