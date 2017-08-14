@@ -69,6 +69,10 @@ public class UsersActivity extends AppCompatActivity {
                                 startActivity(new Intent(UsersActivity.this, ConversationsActivity.class));
                                 break;
                             }
+                            case R.id.navigation_logout:
+                                firebaseAuth.signOut();
+                                startActivity(new Intent(UsersActivity.this, LoginActivity.class));
+                                break;
                         }
                         return true;
                     }

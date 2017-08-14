@@ -18,6 +18,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.bookshelfproject.Activity.Book.BookPopularActivity;
+import com.example.bookshelfproject.Activity.User.LoginActivity;
 import com.example.bookshelfproject.Activity.User.UsersActivity;
 import com.example.bookshelfproject.Model.Conversation;
 import com.example.bookshelfproject.Model.Message;
@@ -97,6 +98,10 @@ public class ChatActivity extends AppCompatActivity {
                             case R.id.navigation_users:
                                 startActivity(new Intent(ChatActivity.this, UsersActivity.class));
                                 finish();
+                                break;
+                            case R.id.navigation_logout:
+                                firebaseAuth.signOut();
+                                startActivity(new Intent(ChatActivity.this, LoginActivity.class));
                                 break;
                         }
                         return true;
