@@ -9,7 +9,8 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.example.bookshelfproject.Activity.Messages.MessagesActivity;
+import com.example.bookshelfproject.Activity.Messages.ConversationsActivity;
+import com.example.bookshelfproject.Activity.User.UsersActivity;
 import com.example.bookshelfproject.Model.Book;
 
 import com.example.bookshelfproject.R;
@@ -49,10 +50,14 @@ public class BookPopularActivity extends Activity {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
-                            case R.id.navigation_home:
-                                //
+                            case R.id.navigation_users:
+                                startActivity(new Intent(BookPopularActivity.this, UsersActivity.class));
+                                break;
+
                             case R.id.navigation_chat:
-                                startActivity(new Intent(BookPopularActivity.this, MessagesActivity.class));
+                                startActivity(new Intent(BookPopularActivity.this, ConversationsActivity.class));
+                                break;
+
 
 
                         }
@@ -92,5 +97,6 @@ public class BookPopularActivity extends Activity {
 
             }
         });
+
     }
 }

@@ -25,7 +25,13 @@
             android:name=".Activity.User.RegisterActivity"
             android:label="@string/app_name"></activity>
         <activity
-            android:name=".Activity.Messages.MessagesActivity"
+            android:name=".Activity.Messages.ConversationsActivity"
+            android:label="@string/app_name"></activity>
+        <activity
+            android:name=".Activity.Messages.ChatActivity"
+            android:label="@string/app_name"></activity>
+        <activity
+            android:name=".Activity.User.UsersActivity"
             android:label="@string/app_name"></activity>
     </application>
 
