@@ -10,10 +10,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.bookshelfproject.Activity.Messages.ConversationsActivity;
+import com.example.bookshelfproject.Activity.User.LoginActivity;
 import com.example.bookshelfproject.Activity.User.UsersActivity;
 import com.example.bookshelfproject.Model.Book;
 
 import com.example.bookshelfproject.R;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,13 +39,17 @@ public class BookPopularActivity extends Activity {
 
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
+    private FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.best_books);
 
-
+        final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        if(FirebaseAuth.getInstance().getCurrentUser() == null ){
+            startActivity(new Intent(BookPopularActivity.this, LoginActivity.class));
+        }
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.navBot);
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -58,8 +64,10 @@ public class BookPopularActivity extends Activity {
                                 startActivity(new Intent(BookPopularActivity.this, ConversationsActivity.class));
                                 break;
 
-
-
+                            case R.id.navigation_logout:
+                                firebaseAuth.signOut();
+                                startActivity(new Intent(BookPopularActivity.this, LoginActivity.class));
+                                break;
                         }
                         return true;
                     }
