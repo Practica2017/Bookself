@@ -11,18 +11,6 @@
         android:layout_height="0dp"
         app:srcCompat="@drawable/common_google_signin_btn_icon_dark_normal_background" />
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="match_parent"
-        android:layout_height="123dp"
-        app:srcCompat="@drawable/common_google_signin_btn_icon_dark_normal_background" />
-
-    <fragment
-        android:id="@+id/frag_details"
-        android:name="layout.book.BookDetailsFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"></fragment>
-
     <fragment
         android:name="layout.book.BookReviewsFragment"
         android:id="@+id/frag_reviews"
