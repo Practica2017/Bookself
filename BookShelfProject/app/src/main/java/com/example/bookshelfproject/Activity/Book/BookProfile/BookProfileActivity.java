@@ -37,7 +37,6 @@ public class BookProfileActivity extends AppCompatActivity{
         String selected_book = getIntent().getStringExtra("selected_book");
         final Book book = gson.fromJson(selected_book, Book.class);
 
-
         Log.d("mytag","---------------------------"+book.getTitle());
         Bundle bundle = new Bundle();
         String myMessage = gson.toJson(book);
