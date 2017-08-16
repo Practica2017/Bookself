@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -39,11 +40,9 @@ import java.util.Map;
  */
 
 public class BookPopularActivity extends Activity  {
-    private ListView listView2;
     private ListView listView;
     private ArrayList<String> bookTitles = new ArrayList<>();
     private static List<Book> bestBooks = new ArrayList<>();
-    private ArrayAdapter<String> adapter;
     private BottomNavigationView bottomNavigationView;
 
     private FirebaseDatabase database;
@@ -95,7 +94,6 @@ public class BookPopularActivity extends Activity  {
 
         listView = (ListView)findViewById(R.id.listview);
 
-        addBestBooks(databaseReference);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -103,9 +101,12 @@ public class BookPopularActivity extends Activity  {
                 Intent intent = new Intent(getApplicationContext(), BookProfileActivity.class);
                 Gson gson = new Gson();
                 intent.putExtra("selected_book", gson.toJson(bestBooks.get(position)));
-                startActivity(intent);
+                Log.d("mytag","---------------------------"+bestBooks.get(position).getTitle());
+                //startActivity(intent);
             }
         });
+
+        addBestBooks(databaseReference);
     }
     private void addBestBooks(DatabaseReference databaseReference) {
         bestBooks.clear();
@@ -125,7 +126,6 @@ public class BookPopularActivity extends Activity  {
                     Book book = bestBooks.get(i);
                     listItems.put(book.getTitle()+"\n  by " + book.getAuthor(),"Avg Rating: " + book.getScore()+" - " + book.getVotes() +" ratings");
                 }
-                listView2 = (ListView) findViewById(R.id.listview);
                 List<HashMap<String, String>> listListItems = new ArrayList<HashMap<String, String>>();
                 SimpleAdapter simpleAdapter = new SimpleAdapter(BookPopularActivity.this, listListItems,R.layout.list_item,
                         new String[]{"First Line", "Second Line"},
