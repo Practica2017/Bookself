@@ -40,16 +40,10 @@
         <activity
             android:name=".Activity.Book.CategoriesActivity"
             android:label="@string/app_name" />
-<<<<<<< HEAD
-        <activity
-            android:name=".Activity.Book.CategoryViewActivity"
-            android:label="@string/app_name" />
-        <activity
-            android:name=".Activity.Book.BookProfile.BookProfileActivity"
-            android:label="@string/app_name" />
-=======
 
->>>>>>> bf3dc1475d2b29aa13e1f960733b464bec7667ca
     </application>
 
 </manifest>
+
+<!--
+nanann-->
