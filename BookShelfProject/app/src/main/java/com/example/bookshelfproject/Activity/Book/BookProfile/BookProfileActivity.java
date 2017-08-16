@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.example.bookshelfproject.Model.Book;
 import com.example.bookshelfproject.Model.Conversation;
@@ -27,8 +28,7 @@ public class BookProfileActivity extends AppCompatActivity{
 
         sectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
 
-        viewPager = (ViewPager) findViewById(R.id.container);
-        setUpViewPager(viewPager);
+
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
@@ -38,7 +38,15 @@ public class BookProfileActivity extends AppCompatActivity{
         final Book book = gson.fromJson(selected_book, Book.class);
 
 
+        Log.d("mytag","---------------------------"+book.getTitle());
+        Bundle bundle = new Bundle();
+        String myMessage = gson.toJson(book);
+        bundle.putString("message", myMessage );
+        BookProfileFragment bookProfileFragment = new BookProfileFragment();
+        bookProfileFragment.setArguments(bundle);
 
+        viewPager = (ViewPager) findViewById(R.id.container);
+        setUpViewPager(viewPager);
     }
 
     private void setUpViewPager(ViewPager viewPager){
@@ -48,4 +56,6 @@ public class BookProfileActivity extends AppCompatActivity{
         adapter.addFragment(new BookDiscussionFragment(), "Discussion");
         viewPager.setAdapter(adapter);
     }
+
+
 }

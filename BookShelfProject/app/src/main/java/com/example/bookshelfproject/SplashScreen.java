@@ -17,17 +17,16 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
         imageView = (ImageView) findViewById(R.id.imageView);
-       // Animation myanim = AnimationUtils.loadAnimation(this,R.anim.mytransition);
+        //Animation myanim = AnimationUtils.loadAnimation(this, R.anim.mytransition);
         final Intent i = new Intent(this, BookPopularActivity.class);
-       // imageView.startAnimation(myanim);
-        Thread timer = new Thread(){
-            public void run(){
-                try{
+        //imageView.startAnimation(myanim);
+        Thread timer = new Thread() {
+            public void run() {
+                try {
                     sleep(4000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
-                }
-                finally {
+                } finally {
                     startActivity(i);
                     finish();
 
@@ -35,6 +34,6 @@ public class SplashScreen extends AppCompatActivity {
             }
         };
 
-                timer.start();
+        timer.start();
     }
 }
