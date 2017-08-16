@@ -38,6 +38,9 @@
         <activity
             android:name=".Activity.Book.CategoriesActivity"
             android:label="@string/app_name" />
+<<<<<<< HEAD
+
+=======
 
         <activity
             android:name=".Activity.Book.CategoryViewActivity"
@@ -47,6 +50,14 @@
             android:label="@string/app_name" />
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5ae8af5c417c74eb12f22b7be16a170cac0c09f2
+>>>>>>> 9f0b798f9e3015af87f6817718cca3e68ac14f9d
     </application>
 
 </manifest>
+
+<!--
+nanann-->
