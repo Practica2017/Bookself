@@ -1,8 +1,10 @@
-package com.example.bookshelfproject.Activity.Messages;
+package com.example.bookshelfproject.Activity.Book;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
@@ -11,11 +13,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.example.bookshelfproject.Activity.Book.BookPopularActivity;
-import com.example.bookshelfproject.Activity.Book.CategoriesActivity;
+import com.example.bookshelfproject.Activity.Messages.ChatActivity;
+import com.example.bookshelfproject.Activity.Messages.ConversationsActivity;
 import com.example.bookshelfproject.Activity.User.LoginActivity;
 import com.example.bookshelfproject.Activity.User.UsersActivity;
-import com.example.bookshelfproject.Model.Conversation;
+import com.example.bookshelfproject.Model.Book;
 import com.example.bookshelfproject.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -26,78 +28,67 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 
 /**
- * Created by filip on 8/10/2017.
+ * Created by filip on 8/15/2017.
  */
 
-public class ConversationsActivity extends AppCompatActivity {
+public class CategoriesActivity extends AppCompatActivity{
     private BottomNavigationView bottomNavigationView;
-    private ListView listViewUsers;
-    private ArrayAdapter adapter;
-    private ArrayList<String> usersName = new ArrayList<>();
-    private ArrayList<Conversation> conversations = new ArrayList<>();
-
-    private FirebaseAuth firebaseAuth;
+    private ListView listView;
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
-
+    private ArrayAdapter adapter;
+    ArrayList<String> categories = new ArrayList<>();
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_conversations);
-
-        firebaseAuth = FirebaseAuth.getInstance();
-
+        setContentView(R.layout.categories_activity);
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.navBot);
-        bottomNavigationView.setSelectedItemId(R.id.navigation_chat);
-
-
+        bottomNavigationView.setSelectedItemId(R.id.navigation_categories);
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
                         switch (item.getItemId()) {
                             case R.id.navigation_users:
-                                startActivity(new Intent(ConversationsActivity.this, UsersActivity.class));
+                                startActivity(new Intent(CategoriesActivity.this, UsersActivity.class));
                                 break;
 
-                            case R.id.navigation_home:
-                                startActivity(new Intent(ConversationsActivity.this, BookPopularActivity.class));
+                            case R.id.navigation_chat:
+                                startActivity(new Intent(CategoriesActivity.this, ConversationsActivity.class));
                                 break;
+
                             case R.id.navigation_logout:
                                 firebaseAuth.signOut();
-                                startActivity(new Intent(ConversationsActivity.this, LoginActivity.class));
+                                startActivity(new Intent(CategoriesActivity.this, LoginActivity.class));
                                 break;
-                            case R.id.navigation_categories:
-                                startActivity(new Intent(ConversationsActivity.this, CategoriesActivity.class));
+                            case R.id.navigation_home:
+                                startActivity(new Intent(CategoriesActivity.this, BookPopularActivity.class));
                                 break;
-
                         }
                         return true;
                     }
                 });
 
+        listView =(ListView) findViewById(R.id.listview);
 
         database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference();
-        listViewUsers = (ListView) findViewById(R.id.listview);
-        final String uid = firebaseAuth.getCurrentUser().getUid();
 
-        databaseReference.child("conversations").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.child("category").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Iterable<DataSnapshot> children = dataSnapshot.getChildren();
-                int i = 0;
-                for (DataSnapshot child : children) {
-                    Conversation conversation = child.getValue(Conversation.class);
-                    conversations.add(conversation);
-                    usersName.add(conversation.getName());
-                    i++;
+                for(DataSnapshot child : children){
+                     String category = child.getKey();
+                    categories.add(category);
                 }
-                adapter = new ArrayAdapter(ConversationsActivity.this, android.R.layout.simple_list_item_1, usersName);
-                listViewUsers.setAdapter(adapter);
+                adapter = new ArrayAdapter(CategoriesActivity.this,android.R.layout.simple_list_item_1, categories);
+                listView.setAdapter(adapter);
             }
 
             @Override
@@ -106,12 +97,12 @@ public class ConversationsActivity extends AppCompatActivity {
             }
         });
 
-        listViewUsers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
+                Intent intent = new Intent(getApplicationContext(), CategoryViewActivity.class);
                 Gson gson = new Gson();
-                intent.putExtra("second_user", gson.toJson(conversations.get(position)));
+                intent.putExtra("category", gson.toJson(categories.get(position)));
                 startActivity(intent);
             }
         });
