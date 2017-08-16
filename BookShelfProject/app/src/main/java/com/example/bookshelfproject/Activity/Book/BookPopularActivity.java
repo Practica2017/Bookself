@@ -8,10 +8,12 @@ import android.support.design.widget.BottomNavigationView;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
+import com.example.bookshelfproject.Activity.Book.BookProfile.BookProfileActivity;
 import com.example.bookshelfproject.Activity.Messages.ConversationsActivity;
 import com.example.bookshelfproject.Activity.User.LoginActivity;
 import com.example.bookshelfproject.Activity.User.UsersActivity;
@@ -24,6 +26,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,6 +54,9 @@ public class BookPopularActivity extends Activity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.best_books);
 
+
+        overridePendingTransition( R.anim.slide_out, R.anim.slide_in);
+
         final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         if(FirebaseAuth.getInstance().getCurrentUser() == null ){
             startActivity(new Intent(BookPopularActivity.this, LoginActivity.class));
@@ -72,6 +78,7 @@ public class BookPopularActivity extends Activity  {
                             case R.id.navigation_logout:
                                 firebaseAuth.signOut();
                                 startActivity(new Intent(BookPopularActivity.this, LoginActivity.class));
+                                finish();
                                 break;
                             case R.id.navigation_categories:
                                 startActivity(new Intent(BookPopularActivity.this, CategoriesActivity.class));
@@ -90,6 +97,15 @@ public class BookPopularActivity extends Activity  {
 
         addBestBooks(databaseReference);
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getApplicationContext(), BookProfileActivity.class);
+                Gson gson = new Gson();
+                intent.putExtra("selected_book", gson.toJson(bestBooks.get(position)));
+                startActivity(intent);
+            }
+        });
     }
     private void addBestBooks(DatabaseReference databaseReference) {
         bestBooks.clear();

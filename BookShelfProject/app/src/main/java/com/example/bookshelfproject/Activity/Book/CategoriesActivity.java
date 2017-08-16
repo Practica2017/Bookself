@@ -35,18 +35,22 @@ import java.util.Iterator;
  * Created by filip on 8/15/2017.
  */
 
-public class CategoriesActivity extends AppCompatActivity{
+public class CategoriesActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
     private ListView listView;
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
     private ArrayAdapter adapter;
     ArrayList<String> categories = new ArrayList<>();
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.categories_activity);
+
+        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.navBot);
         bottomNavigationView.setSelectedItemId(R.id.navigation_categories);
         bottomNavigationView.setOnNavigationItemSelectedListener(
@@ -65,6 +69,7 @@ public class CategoriesActivity extends AppCompatActivity{
                             case R.id.navigation_logout:
                                 firebaseAuth.signOut();
                                 startActivity(new Intent(CategoriesActivity.this, LoginActivity.class));
+                                finish();
                                 break;
                             case R.id.navigation_home:
                                 startActivity(new Intent(CategoriesActivity.this, BookPopularActivity.class));
@@ -74,7 +79,7 @@ public class CategoriesActivity extends AppCompatActivity{
                     }
                 });
 
-        listView =(ListView) findViewById(R.id.listview);
+        listView = (ListView) findViewById(R.id.listview);
 
         database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference();
@@ -83,11 +88,11 @@ public class CategoriesActivity extends AppCompatActivity{
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Iterable<DataSnapshot> children = dataSnapshot.getChildren();
-                for(DataSnapshot child : children){
-                     String category = child.getKey();
+                for (DataSnapshot child : children) {
+                    String category = child.getKey();
                     categories.add(category);
                 }
-                adapter = new ArrayAdapter(CategoriesActivity.this,android.R.layout.simple_list_item_1, categories);
+                adapter = new ArrayAdapter(CategoriesActivity.this, android.R.layout.simple_list_item_1, categories);
                 listView.setAdapter(adapter);
             }
 
