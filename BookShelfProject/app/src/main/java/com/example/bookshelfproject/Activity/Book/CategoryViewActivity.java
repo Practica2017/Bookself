@@ -49,6 +49,7 @@ public class CategoryViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         setContentView(R.layout.categories_activity);
+        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.navBot);
         bottomNavigationView.setSelectedItemId(R.id.navigation_categories);
         bottomNavigationView.setOnNavigationItemSelectedListener(
@@ -67,6 +68,7 @@ public class CategoryViewActivity extends AppCompatActivity {
                             case R.id.navigation_logout:
                                 firebaseAuth.signOut();
                                 startActivity(new Intent(CategoryViewActivity.this, LoginActivity.class));
+                                finish();
                                 break;
                             case R.id.navigation_home:
                                 startActivity(new Intent(CategoryViewActivity.this, BookPopularActivity.class));
@@ -94,7 +96,8 @@ public class CategoryViewActivity extends AppCompatActivity {
         bookTitles.clear();
         Gson gson = new Gson();
         String category = getIntent().getStringExtra("category");
-        category = category.substring(1, category.length()-1);
+
+        category = category.substring(1, category.length() - 1);
         databaseReference.child("category").child(category).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

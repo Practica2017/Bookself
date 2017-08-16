@@ -46,6 +46,7 @@ public class ConversationsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversations);
+        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
         firebaseAuth = FirebaseAuth.getInstance();
 

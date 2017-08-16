@@ -73,6 +73,7 @@ public class UsersActivity extends AppCompatActivity {
                             case R.id.navigation_logout:
                                 firebaseAuth.signOut();
                                 startActivity(new Intent(UsersActivity.this, LoginActivity.class));
+                                finish();
                                 break;
                             case R.id.navigation_categories:
                                 startActivity(new Intent(UsersActivity.this, CategoriesActivity.class));

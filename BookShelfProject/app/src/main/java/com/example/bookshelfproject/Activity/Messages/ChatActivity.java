@@ -61,6 +61,7 @@ public class ChatActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
         database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference();
@@ -103,6 +104,7 @@ public class ChatActivity extends AppCompatActivity {
                             case R.id.navigation_logout:
                                 firebaseAuth.signOut();
                                 startActivity(new Intent(ChatActivity.this, LoginActivity.class));
+                                finish();
                                 break;
                             case R.id.navigation_categories:
                                 startActivity(new Intent(ChatActivity.this, CategoriesActivity.class));
