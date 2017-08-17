@@ -44,9 +44,11 @@ public class BookPopularActivity extends Activity  {
     private ArrayList<String> bookTitles = new ArrayList<>();
     private static List<Book> bestBooks = new ArrayList<>();
     private BottomNavigationView bottomNavigationView;
+    private HashMap<String, String> listItems = new HashMap<>();
 
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +96,7 @@ public class BookPopularActivity extends Activity  {
 
         listView = (ListView)findViewById(R.id.listview);
 
+        addBestBooks(databaseReference);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -101,12 +104,12 @@ public class BookPopularActivity extends Activity  {
                 Intent intent = new Intent(getApplicationContext(), BookProfileActivity.class);
                 Gson gson = new Gson();
                 intent.putExtra("selected_book", gson.toJson(bestBooks.get(position)));
-                Log.d("mytag","---------------------------"+bestBooks.get(position).getTitle());
+                Log.d("mytag","---------------------------"+listItems.get(position));
                 //startActivity(intent);
             }
         });
 
-        addBestBooks(databaseReference);
+
     }
     private void addBestBooks(DatabaseReference databaseReference) {
         bestBooks.clear();
@@ -121,7 +124,7 @@ public class BookPopularActivity extends Activity  {
                     bestBooks.add(i, book);
                     i++;
                 }
-                HashMap<String, String> listItems = new HashMap<>();
+
                 for (i = 0; i < bestBooks.size(); i++) {
                     Book book = bestBooks.get(i);
                     listItems.put(book.getTitle()+"\n  by " + book.getAuthor(),"Avg Rating: " + book.getScore()+" - " + book.getVotes() +" ratings");
