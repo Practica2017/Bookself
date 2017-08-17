@@ -8,10 +8,13 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
+import com.example.bookshelfproject.Activity.Book.BookProfile.BookProfileActivity;
 import com.example.bookshelfproject.Activity.Messages.ConversationsActivity;
 import com.example.bookshelfproject.Activity.User.LoginActivity;
 import com.example.bookshelfproject.Activity.User.UsersActivity;
@@ -28,6 +31,7 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -89,6 +93,22 @@ public class CategoryViewActivity extends AppCompatActivity {
         databaseReference = database.getReference();
 
         addBestBooks(databaseReference);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getApplicationContext(), BookProfileActivity.class);
+                Gson gson = new Gson();
+                intent.putExtra("selected_book", gson.toJson(bestBooks.get(position)));
+                startActivity(intent);
+            }
+        });
+
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        addBestBooks(databaseReference);
     }
 
     private void addBestBooks(DatabaseReference databaseReference) {
@@ -108,7 +128,7 @@ public class CategoryViewActivity extends AppCompatActivity {
                     bestBooks.add(i, book);
                     i++;
                 }
-                HashMap<String, String> listItems = new HashMap<>();
+                LinkedHashMap<String, String> listItems = new LinkedHashMap<>();
                 for (i = 0; i < bestBooks.size(); i++) {
                     Book book = bestBooks.get(i);
                     listItems.put(book.getTitle() + "\n  by " + book.getAuthor(), "Avg Rating: " + book.getScore() + " - " + book.getVotes() + " ratings");

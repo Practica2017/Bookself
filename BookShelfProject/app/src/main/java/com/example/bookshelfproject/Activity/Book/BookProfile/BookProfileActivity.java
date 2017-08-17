@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.example.bookshelfproject.Activity.Book.BookPopularActivity;
 import com.example.bookshelfproject.Model.Book;
 import com.example.bookshelfproject.Model.Conversation;
 import com.example.bookshelfproject.R;
@@ -21,6 +22,7 @@ public class BookProfileActivity extends AppCompatActivity{
 
     private SectionsPageAdapter sectionsPageAdapter;
     private ViewPager viewPager;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,23 +31,13 @@ public class BookProfileActivity extends AppCompatActivity{
         sectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
 
 
+        viewPager = (ViewPager) findViewById(R.id.container);
+        setUpViewPager(viewPager);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
-        Gson gson = new Gson();
-        String selected_book = getIntent().getStringExtra("selected_book");
-        final Book book = gson.fromJson(selected_book, Book.class);
 
-        Log.d("mytag","---------------------------"+book.getTitle());
-        Bundle bundle = new Bundle();
-        String myMessage = gson.toJson(book);
-        bundle.putString("message", myMessage );
-        BookProfileFragment bookProfileFragment = new BookProfileFragment();
-        bookProfileFragment.setArguments(bundle);
-
-        viewPager = (ViewPager) findViewById(R.id.container);
-        setUpViewPager(viewPager);
     }
 
     private void setUpViewPager(ViewPager viewPager){
@@ -55,6 +47,5 @@ public class BookProfileActivity extends AppCompatActivity{
         adapter.addFragment(new BookDiscussionFragment(), "Discussion");
         viewPager.setAdapter(adapter);
     }
-
 
 }

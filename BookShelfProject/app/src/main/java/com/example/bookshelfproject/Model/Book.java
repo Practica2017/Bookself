@@ -1,19 +1,21 @@
 package com.example.bookshelfproject.Model;
 
+import java.io.Serializable;
+
 /**
  * Created by filip on 8/3/2017.
  */
 
-public class Book {
+public class Book implements Serializable {
     private long Id;
     private String Title;
     private String Author;
-    private String Score;
+    private float Score;
     private int Votes;
     private String Description;
     private String Category;
 
-    public Book(long Id, String Title, String Author, String Score, int Votes, String Description, String Category) {
+    public Book(long Id, String Title, String Author, float Score, int Votes, String Description, String Category) {
         this.Id = Id;
         this.Title = Title;
         this.Author = Author;
@@ -50,11 +52,11 @@ public class Book {
         this.Author = Author;
     }
 
-    public String getScore() {
+    public float getScore() {
         return Score;
     }
 
-    public void setScore(String Score) {
+    public void setScore(float Score) {
         this.Score = Score;
     }
 
@@ -80,5 +82,18 @@ public class Book {
 
     public void setCategory(String Category) {
         this.Category = Category;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "Id=" + Id +
+                ", Title='" + Title + '\'' +
+                ", Author='" + Author + '\'' +
+                ", Score='" + Score + '\'' +
+                ", Votes=" + Votes +
+                ", Description='" + Description + '\'' +
+                ", Category='" + Category + '\'' +
+                '}';
     }
 }
