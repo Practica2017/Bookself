@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SplashScreen">
+        <activity android:name=".Activity.Book.BookPopularActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,9 +19,9 @@
             </intent-filter>
         </activity>
 
-        <activity
+        <!--<activity
             android:name=".Activity.Book.BookPopularActivity"
-            android:label="@string/app_name" />
+            android:label="@string/app_name" />-->
         <activity
             android:name=".Activity.User.LoginActivity"
             android:label="@string/app_name" />
@@ -49,16 +49,10 @@
         <activity
             android:name=".Activity.Book.BookProfile.BookProfileActivity"
             android:label="@string/app_name" />
+        <activity
+            android:name=".Activity.User.User_Profile"
+            android:label="@string/app_name" />
 
-
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-
->>>>>>> 5ae8af5c417c74eb12f22b7be16a170cac0c09f2
->>>>>>> 9f0b798f9e3015af87f6817718cca3e68ac14f9d
->>>>>>> 9a316773640bc1ca36598a1b2354b4c5ff5587dd
     </application>
 
 </manifest>

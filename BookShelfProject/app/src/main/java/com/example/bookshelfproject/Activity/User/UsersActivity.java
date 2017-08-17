@@ -121,7 +121,15 @@ public class UsersActivity extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         User loggedInUser = dataSnapshot.getValue(User.class);
                         User userToChat = users.get(position);
-                        Conversation conversation = new Conversation(userToChat.getId(), "", userToChat.getName(), loggedInUser.getName());
+
+                        Intent intent = new Intent(getApplicationContext(), User_Profile.class);
+                        Gson gson = new Gson();
+                        intent.putExtra("user", gson.toJson(loggedInUser));
+                        intent.putExtra("userToChat", gson.toJson(userToChat));
+                        startActivity(intent);
+
+
+                        /*Conversation conversation = new Conversation(userToChat.getId(), "", userToChat.getName(), loggedInUser.getName());
                         databaseReference.child("conversations").child(loggedUserId).child(conversation.getId()).setValue(conversation);
                         Conversation conversationForSecondUser = new Conversation(loggedInUser.getId(), "", loggedInUser.getName(), userToChat.getName());
                         databaseReference.child("conversations").child(conversation.getId()).child(loggedUserId).setValue(conversationForSecondUser);
@@ -129,7 +137,7 @@ public class UsersActivity extends AppCompatActivity {
                         Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
                         Gson gson = new Gson();
                         intent.putExtra("second_user", gson.toJson(conversation));
-                        startActivity(intent);
+                        startActivity(intent);*/
                     }
 
                     @Override

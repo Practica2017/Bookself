@@ -1,51 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/bookshelfblog"
+    android:weightSum="1">
 
     <LinearLayout
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp">
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="50dp"
+        android:layout_weight="0.85"
+        android:orientation="vertical"
+        android:weightSum="1">
 
 
         <EditText
-            android:layout_margin="15dp"
-            android:hint="Fullname "
             android:id="@+id/editName"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <EditText
+            android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:hint="Email Address "
+            android:hint="Fullname "
+            android:textStyle="bold" />
+
+        <EditText
             android:id="@+id/editTextEmail"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <EditText
+            android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:password="true"
-            android:hint="Password "
+            android:hint="Email Address "
+            android:textStyle="bold" />
+
+        <EditText
             android:id="@+id/editTextPassword"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:hint="Password "
+            android:password="true"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/buttonRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:background="@android:color/darker_gray"
-            android:text="Register USer" />
+            android:background="@android:drawable/checkbox_off_background"
+            android:text="Register USer"
+            android:textStyle="bold" />
+
         <TextView
-            android:layout_marginTop="17dp"
-            android:textSize="17dp"
-            android:textAlignment="center"
-            android:text="Already Registered? Sign In here!"
             android:id="@+id/texViewSignIn"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="17dp"
+            android:layout_weight="0.50"
+            android:contentDescription="?android:attr/candidatesTextStyleSpans"
+            android:text="Already Registered? Sign In here!"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:visibility="visible" />
     </LinearLayout>
 </LinearLayout>
