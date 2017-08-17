@@ -17,9 +17,9 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
         imageView = (ImageView) findViewById(R.id.imageView);
-        //Animation myanim = AnimationUtils.loadAnimation(this, R.anim.mytransition);
+        Animation myanim = AnimationUtils.loadAnimation(this, R.anim.mytransition);
         final Intent i = new Intent(this, BookPopularActivity.class);
-        //imageView.startAnimation(myanim);
+        imageView.startAnimation(myanim);
         Thread timer = new Thread() {
             public void run() {
                 try {
