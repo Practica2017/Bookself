@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.bookshelfproject.Activity.User.LoginActivity"
-    android:background="@drawable/shelving"
+
     >
 
-    <ImageView
+    <!--<ImageView
         android:id="@+id/imageView3"
         android:layout_width="355dp"
         android:layout_height="151dp"
@@ -16,7 +16,7 @@
         android:src="@drawable/header"
         android:visibility="visible"
         tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="395dp" />
+        tools:layout_editor_absoluteY="395dp" />-->
 
     <LinearLayout
         android:layout_width="363dp"
@@ -53,7 +53,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
             android:layout_marginTop="70dp"
-            android:background="@android:drawable/checkbox_off_background"
             android:text="Login"
             android:textStyle="bold" />
 

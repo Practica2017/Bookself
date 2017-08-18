@@ -12,6 +12,7 @@ import android.widget.ListView;
 import com.example.bookshelfproject.Activity.Book.CategoriesActivity;
 import com.example.bookshelfproject.Model.Book;
 import com.example.bookshelfproject.Model.Rating;
+import com.example.bookshelfproject.Model.User;
 import com.example.bookshelfproject.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -45,7 +46,7 @@ public class BookReviewsFragment extends Fragment {
 
         listView = (ListView) view.findViewById(R.id.listview);
 
-        //listView.getAdapter().notify();
+
 
         Gson gson = new Gson();
         String strObj = getActivity().getIntent().getStringExtra("selected_book");

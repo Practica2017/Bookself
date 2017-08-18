@@ -50,6 +50,7 @@ public class BookProfileFragment extends Fragment {
     private boolean hasReview = false;
     private User user;
     private String currentUserId;
+    private boolean read = false;
 
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase database;
@@ -63,14 +64,14 @@ public class BookProfileFragment extends Fragment {
         Gson gson = new Gson();
         String strObj = getActivity().getIntent().getStringExtra("selected_book");
         final Book book = gson.fromJson(strObj, Book.class);
+        String strObj1 = getActivity().getIntent().getStringExtra("user");
+        user = gson.fromJson(strObj1, User.class);
 
         database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference();
         firebaseAuth = FirebaseAuth.getInstance();
 
         currentUserId = firebaseAuth.getCurrentUser().getUid();
-
-        setCurrentUser(databaseReference);
 
         image = (ImageView) view.findViewById(R.id.imageView1);
         String downloadURI = "https://firebasestorage.googleapis.com/v0/b/bookshelfproject-54d57.appspot.com/o/books.jpg?alt=media&token=5933f37c-227d-4aef-abdb-497a0c316797";
@@ -83,6 +84,43 @@ public class BookProfileFragment extends Fragment {
         ratingBar.setRating(book.getScore());
         numberOfVotes = (TextView) view.findViewById(R.id.numberOfVotesTextView);
         numberOfVotes.setText(book.getVotes() + " Votes");
+        checkBox = (CheckBox) view.findViewById(R.id.checkBox);
+
+        checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(read == false){
+                    read = true;
+                    databaseReference.child("user-read-books").child(currentUserId).child(book.getId()+"").setValue(book);
+                    checkBox.setChecked(read);
+                    return;
+                }
+                else {
+                    read = false;
+                    databaseReference.child("user-read-books").child(currentUserId).child(book.getId()+"").removeValue();
+                    checkBox.setChecked(read);
+                    return;
+                }
+
+
+            }
+        });
+
+        databaseReference.child("user-read-books").child(currentUserId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.hasChild(book.getId()+"")){
+                    read = true;
+                    checkBox.setChecked(read);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
         addReviewButton = (Button) view.findViewById(R.id.addReview);
         addReviewButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,6 +177,7 @@ public class BookProfileFragment extends Fragment {
 
                         databaseReference.child("books").child(book.getId() + "").setValue(book);
                         databaseReference.child("category").child(book.getCategory()).child(book.getId() + "").setValue(book);
+                        databaseReference.child("user-read-books").child(currentUserId).child(book.getId()+"").setValue(book);
 
                         ratingBar.setRating(book.getScore());
                         numberOfVotes.setText(book.getVotes()+" Votes");
@@ -151,19 +190,5 @@ public class BookProfileFragment extends Fragment {
 
 
         return view;
-    }
-
-    public void setCurrentUser(DatabaseReference databaseReference){
-        databaseReference.child("users").child(currentUserId).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                user = dataSnapshot.getValue(User.class);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
     }
 }

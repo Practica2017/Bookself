@@ -71,13 +71,13 @@ public class ChatAdapter extends BaseAdapter {
         }
 
         boolean myMsg = true;
-        if(myUid.equals(chatMessage.getUserAuthor())){
+        if(myUid.equals(chatMessage.getUserAuthorId())){
             myMsg = false;
         }
 
         setAlignment(holder, myMsg);
         holder.txtMessage.setText(chatMessage.getText());
-        //holder.txtInfo.setText("test");
+        holder.txtInfo.setText(chatMessage.getUserAuthrorName());
 
 
         return convertView;

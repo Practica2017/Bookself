@@ -20,6 +20,7 @@ import com.example.bookshelfproject.Activity.User.LoginActivity;
 import com.example.bookshelfproject.Activity.User.UsersActivity;
 import com.example.bookshelfproject.Model.Book;
 
+import com.example.bookshelfproject.Model.User;
 import com.example.bookshelfproject.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -50,20 +51,28 @@ public class BookPopularActivity extends Activity {
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
 
+    private String currentUserId;
+    private User user;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.best_books);
 
-
+        database = FirebaseDatabase.getInstance();
+        databaseReference = database.getReference();
 
         overridePendingTransition(R.anim.slide_out, R.anim.slide_in);
 
         final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+
         if (FirebaseAuth.getInstance().getCurrentUser() == null) {
             startActivity(new Intent(BookPopularActivity.this, LoginActivity.class));
         }
+        currentUserId = firebaseAuth.getCurrentUser().getUid();
+        setCurrentUser(databaseReference);
+
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.navBot);
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -92,8 +101,7 @@ public class BookPopularActivity extends Activity {
                 });
 
 
-        database = FirebaseDatabase.getInstance();
-        databaseReference = database.getReference();
+
         //addBookstoDatabase();
 
         listView = (ListView) findViewById(R.id.listview);
@@ -106,6 +114,7 @@ public class BookPopularActivity extends Activity {
                 Intent intent = new Intent(getApplicationContext(), BookProfileActivity.class);
                 Gson gson = new Gson();
                 intent.putExtra("selected_book", gson.toJson(bestBooks.get(position)));
+                intent.putExtra("user", gson.toJson(user));
                 startActivity(intent);
             }
         });
@@ -162,38 +171,60 @@ public class BookPopularActivity extends Activity {
         addBestBooks(databaseReference);
     }
 
+    public void setCurrentUser(DatabaseReference databaseReference){
+        databaseReference.child("users").child(currentUserId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                user = dataSnapshot.getValue(User.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     private void addBookstoDatabase() {
         Book bookTest = new Book(1, "Moara cu Noroc", "Ioan Slavici", 3, 10, "Best book ever", "Drama");
         databaseReference.child("books").child(bookTest.getId() + "").setValue(bookTest);
         databaseReference.child("category").child(bookTest.getCategory()).child(bookTest.getId() + "").setValue(bookTest);
+        databaseReference.child("user-read-books").child(currentUserId).child(bookTest.getId()+"").setValue(bookTest);
 
         Book bookTest1 = new Book(2, "Adolescentul", "Mircea Eliade", 4, 10, "Best book ever", "Romance");
         databaseReference.child("books").child(bookTest1.getId() + "").setValue(bookTest1);
         databaseReference.child("category").child(bookTest1.getCategory()).child(bookTest1.getId() + "").setValue(bookTest1);
+        databaseReference.child("user-read-books").child(currentUserId).child(bookTest1.getId()+"").setValue(bookTest1);
 
         Book bookTest2 = new Book(3, "Fram ursul polar", "Ioan Slavici", 5, 10, "Best book ever", "Fantasy");
         databaseReference.child("books").child(bookTest2.getId() + "").setValue(bookTest2);
         databaseReference.child("category").child(bookTest2.getCategory()).child(bookTest2.getId() + "").setValue(bookTest2);
+        databaseReference.child("user-read-books").child(currentUserId).child(bookTest2.getId()+"").setValue(bookTest2);
 
         Book bookTest3 = new Book(4, "Amintiri din copilarie", "Ioan Slavici", 2, 10, "Best book ever", "Action");
         databaseReference.child("books").child(bookTest3.getId() + "").setValue(bookTest3);
         databaseReference.child("category").child(bookTest3.getCategory()).child(bookTest3.getId() + "").setValue(bookTest3);
+        databaseReference.child("user-read-books").child(currentUserId).child(bookTest3.getId()+"").setValue(bookTest3);
 
         Book bookTest4 = new Book(5, "Ion", "Ioan Slavici", 5, 10, "Best book ever", "Crime");
         databaseReference.child("books").child(bookTest4.getId() + "").setValue(bookTest4);
         databaseReference.child("category").child(bookTest4.getCategory()).child(bookTest4.getId() + "").setValue(bookTest4);
+        databaseReference.child("user-read-books").child(currentUserId).child(bookTest4.getId()+"").setValue(bookTest4);
 
         Book bookTest5 = new Book(6, "Morometii", "Marin Preda", 5, 3, "Best book ever", "Drama");
         databaseReference.child("books").child(bookTest5.getId() + "").setValue(bookTest5);
         databaseReference.child("category").child(bookTest5.getCategory()).child(bookTest5.getId() + "").setValue(bookTest5);
+        databaseReference.child("user-read-books").child(currentUserId).child(bookTest5.getId()+"").setValue(bookTest5);
 
         Book bookTest6 = new Book(7, "Vol Poezii 2", "Mihai Eminescu", 5, 3, "Best book ever", "Poetry");
         databaseReference.child("books").child(bookTest6.getId() + "").setValue(bookTest6);
         databaseReference.child("category").child(bookTest6.getCategory()).child(bookTest6.getId() + "").setValue(bookTest6);
+        databaseReference.child("user-read-books").child(currentUserId).child(bookTest6.getId()+"").setValue(bookTest6);
 
         Book bookTest7 = new Book(8, "Start with why", "Ioan Slavici", 3, 10, "Best book ever", "Drama");
         databaseReference.child("books").child(bookTest7.getId() + "").setValue(bookTest7);
         databaseReference.child("category").child(bookTest7.getCategory()).child(bookTest7.getId() + "").setValue(bookTest7);
+        databaseReference.child("user-read-books").child(currentUserId).child(bookTest7.getId()+"").setValue(bookTest7);
 
     }
 }

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/textViewName"
+        android:layout_margin="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:textSize="28sp"
+        android:textColor="@color/cardview_dark_background"
+        android:textStyle="bold"
+        android:text="test"/>
+    <TextView
+        android:layout_margin="5dp"
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_below="@+id/textViewName"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:textColor="@color/cardview_dark_background"
+        android:text="List of read books"/>
+    <ListView
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/listview"
+       android:layout_below="@+id/textView">
+
+    </ListView>
+</RelativeLayout>

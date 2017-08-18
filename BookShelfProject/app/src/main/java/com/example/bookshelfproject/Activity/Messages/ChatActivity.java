@@ -23,6 +23,7 @@ import com.example.bookshelfproject.Activity.User.LoginActivity;
 import com.example.bookshelfproject.Activity.User.UsersActivity;
 import com.example.bookshelfproject.Model.Conversation;
 import com.example.bookshelfproject.Model.Message;
+import com.example.bookshelfproject.Model.User;
 import com.example.bookshelfproject.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -53,6 +54,7 @@ public class ChatActivity extends AppCompatActivity {
     private ListView messagesContainer;
     private TextView userName;
     private ImageButton imageButtonBack;
+    private User user;
 
 
     private ChatAdapter adapter;
@@ -68,7 +70,7 @@ public class ChatActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
 
         userId = firebaseAuth.getCurrentUser().getUid();
-
+        setCurrentUser(databaseReference);
         editTextMessage = (EditText) findViewById(R.id.enterChat);
         buttonSendMessage = (Button) findViewById(R.id.sendButton);
         messagesContainer = (ListView) findViewById(R.id.messagesContainer);
@@ -129,7 +131,7 @@ public class ChatActivity extends AppCompatActivity {
                     return;
                 }
                 String messageId = databaseReference.push().getKey();
-                Message message = new Message(messageId, editTextMessage.getText().toString(), userId, System.currentTimeMillis());
+                Message message = new Message(messageId, editTextMessage.getText().toString(), userId, System.currentTimeMillis(),user.getName());
                 databaseReference.child("messeges").child(userId).child(secondUserId).child(messageId).setValue(message);
                 databaseReference.child("messeges").child(secondUserId).child(userId).child(messageId).setValue(message);
 
@@ -176,7 +178,19 @@ public class ChatActivity extends AppCompatActivity {
             displayMessage(message);
         }
     }
+    public void setCurrentUser(DatabaseReference databaseReference){
+        databaseReference.child("users").child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                user = dataSnapshot.getValue(User.class);
+            }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
     /*private void append_chat_conversation2(DataSnapshot dataSnapshot, Conversation conversation, String userId, String secondUserId) {
         textViewMessage.setText("");
         Iterable<DataSnapshot> children = dataSnapshot.getChildren();

@@ -29,6 +29,7 @@ public class User_Profile extends AppCompatActivity {
     private Button sendMessageButton;
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
+    private Button readBooksButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,6 +42,7 @@ public class User_Profile extends AppCompatActivity {
         textViewUsername = (TextView) findViewById(R.id.textViewUsername);
         textViewEmail = (TextView) findViewById(R.id.textViewEmail);
         sendMessageButton = (Button) findViewById(R.id.sendMessageButton);
+        readBooksButton = (Button) findViewById(R.id.viewReadBooksButton);
 
         Gson gson = new Gson();
         String strObj = getIntent().getStringExtra("userToChat");
@@ -66,5 +68,15 @@ public class User_Profile extends AppCompatActivity {
             }
         });
 
+
+        readBooksButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(User_Profile.this,ReadBooksActivity.class);
+                Gson gson = new Gson();
+                intent.putExtra("userToChat", gson.toJson(userToChat));
+                startActivity(intent);
+            }
+        });
     }
 }

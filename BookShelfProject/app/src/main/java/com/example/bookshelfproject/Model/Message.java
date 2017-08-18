@@ -9,13 +9,15 @@ import java.security.Timestamp;
 public class Message {
     private String id;
     private String text;
-    private String userAuthor;
+    private String userAuthorId;
+    private String userAuthrorName;
     private long timestamp;
 
-    public Message(String id, String text, String userAuthor, long timestamp) {
+    public Message(String id, String text, String userAuthorId, long timestamp, String userAuthrorName) {
         this.id = id;
         this.text = text;
-        this.userAuthor = userAuthor;
+        this.userAuthorId = userAuthorId;
+        this.userAuthrorName = userAuthrorName;
         this.timestamp = timestamp;
     }
 
@@ -38,12 +40,20 @@ public class Message {
         this.text = text;
     }
 
-    public String getUserAuthor() {
-        return userAuthor;
+    public String getUserAuthorId() {
+        return userAuthorId;
     }
 
-    public void setUserAuthor(String userAuthor) {
-        this.userAuthor = userAuthor;
+    public void setUserAuthorId(String userAuthorId) {
+        this.userAuthorId = userAuthorId;
+    }
+
+    public String getUserAuthrorName() {
+        return userAuthrorName;
+    }
+
+    public void setUserAuthrorName(String userAuthrorName) {
+        this.userAuthrorName = userAuthrorName;
     }
 
     public long getTimestamp() {
