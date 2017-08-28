@@ -6,11 +6,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ListView
-        android:layout_margin="10dp"
-        android:id="@+id/listview"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/textView"
+            android:text="Best Books"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            android:textColor="@color/cardview_dark_background"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_margin="10dp"/>
+
+        <ListView
+            android:id="@+id/listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/textView"
+            android:layout_margin="10dp" />
+
+    </RelativeLayout>
 
     <android.support.design.widget.BottomNavigationView
         android:layout_height="wrap_content"
@@ -19,5 +36,7 @@
         android:layout_gravity="bottom"
         design:menu="@menu/navigation"
         />
+
+
 
 </android.support.design.widget.CoordinatorLayout>

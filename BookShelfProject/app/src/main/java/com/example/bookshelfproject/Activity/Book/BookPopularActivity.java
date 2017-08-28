@@ -136,7 +136,7 @@ public class BookPopularActivity extends Activity {
     private void addBestBooks(DatabaseReference databaseReference) {
         bestBooks.clear();
         bookTitles.clear();
-        databaseReference.child("books").orderByChild("score").startAt(1).endAt(5).addValueEventListener(new ValueEventListener() {
+        databaseReference.child("books").orderByChild("score").startAt(2).endAt(5).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Iterable<DataSnapshot> children = dataSnapshot.getChildren();
