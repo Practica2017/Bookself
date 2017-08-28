@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,9 +14,7 @@ import android.widget.ListView;
 
 import com.example.bookshelfproject.Activity.Book.BookPopularActivity;
 import com.example.bookshelfproject.Activity.Book.CategoriesActivity;
-import com.example.bookshelfproject.Activity.Messages.ChatActivity;
 import com.example.bookshelfproject.Activity.Messages.ConversationsActivity;
-import com.example.bookshelfproject.Model.Conversation;
 import com.example.bookshelfproject.Model.User;
 import com.example.bookshelfproject.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,8 +26,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 /**
  * Created by filip on 8/12/2017.
@@ -70,9 +65,8 @@ public class UsersActivity extends AppCompatActivity {
                                 startActivity(new Intent(UsersActivity.this, ConversationsActivity.class));
                                 break;
                             }
-                            case R.id.navigation_logout:
-                                firebaseAuth.signOut();
-                                startActivity(new Intent(UsersActivity.this, LoginActivity.class));
+                            case R.id.navigation_profile:
+                                startActivity(new Intent(UsersActivity.this, MyProfileActivity.class));
                                 finish();
                                 break;
                             case R.id.navigation_categories:
@@ -122,7 +116,7 @@ public class UsersActivity extends AppCompatActivity {
                         User loggedInUser = dataSnapshot.getValue(User.class);
                         User userToChat = users.get(position);
 
-                        Intent intent = new Intent(getApplicationContext(), User_Profile.class);
+                        Intent intent = new Intent(getApplicationContext(), UserProfileActivity.class);
                         Gson gson = new Gson();
                         intent.putExtra("user", gson.toJson(loggedInUser));
                         intent.putExtra("userToChat", gson.toJson(userToChat));

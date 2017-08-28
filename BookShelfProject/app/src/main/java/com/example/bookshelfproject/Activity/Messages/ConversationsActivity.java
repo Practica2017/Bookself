@@ -14,6 +14,7 @@ import android.widget.ListView;
 import com.example.bookshelfproject.Activity.Book.BookPopularActivity;
 import com.example.bookshelfproject.Activity.Book.CategoriesActivity;
 import com.example.bookshelfproject.Activity.User.LoginActivity;
+import com.example.bookshelfproject.Activity.User.MyProfileActivity;
 import com.example.bookshelfproject.Activity.User.UsersActivity;
 import com.example.bookshelfproject.Model.Conversation;
 import com.example.bookshelfproject.R;
@@ -67,9 +68,8 @@ public class ConversationsActivity extends AppCompatActivity {
                             case R.id.navigation_home:
                                 startActivity(new Intent(ConversationsActivity.this, BookPopularActivity.class));
                                 break;
-                            case R.id.navigation_logout:
-                                firebaseAuth.signOut();
-                                startActivity(new Intent(ConversationsActivity.this, LoginActivity.class));
+                            case R.id.navigation_profile:
+                                startActivity(new Intent(ConversationsActivity.this, MyProfileActivity.class));
                                 break;
                             case R.id.navigation_categories:
                                 startActivity(new Intent(ConversationsActivity.this, CategoriesActivity.class));

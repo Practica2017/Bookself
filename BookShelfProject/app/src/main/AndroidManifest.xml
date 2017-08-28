@@ -47,10 +47,13 @@
             android:name=".Activity.Book.BookProfile.BookProfileActivity"
             android:label="@string/app_name" />
         <activity
-            android:name=".Activity.User.User_Profile"
+            android:name=".Activity.User.UserProfileActivity"
             android:label="@string/app_name" />
         <activity
             android:name=".Activity.User.ReadBooksActivity"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".Activity.User.MyProfileActivity"
             android:label="@string/app_name" />
     </application>
 

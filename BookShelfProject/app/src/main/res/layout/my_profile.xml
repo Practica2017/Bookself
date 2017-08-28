@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:design="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textViewUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="13dp"
+            android:gravity="center"
+            android:text="Username"
+            android:textStyle="bold"
+            android:textColor="@color/cardview_dark_background"
+            android:textSize="40sp" />
+
+        <TextView
+            android:id="@+id/textViewEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageViewPictureProfile"
+            android:layout_marginTop="14dp"
+            android:gravity="center"
+            android:text="Email"
+            android:textSize="30sp" />
+
+        <ImageView
+            android:id="@+id/imageViewPictureProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewUsername"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="13dp"
+            design:srcCompat="@drawable/usersicon" />
+
+        <Button
+            android:id="@+id/editProfileButton"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewEmail"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="55dp"
+            android:layout_marginRight="55dp"
+            android:layout_marginTop="12dp"
+            android:background="@android:drawable/btn_default"
+            android:text="Edit Profile" />
+
+        <Button
+            android:id="@+id/viewReadBooksButton"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editProfileButton"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="55dp"
+            android:layout_marginRight="55dp"
+            android:layout_marginTop="12dp"
+            android:background="@android:drawable/btn_default"
+            android:text="MY Read books" />
+
+        <Button
+            android:id="@+id/logoutButton"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/viewReadBooksButton"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="55dp"
+            android:layout_marginRight="55dp"
+            android:layout_marginTop="12dp"
+            android:background="@android:drawable/btn_default"
+            android:text="Log out" />
+    </RelativeLayout>
+
+
+    <android.support.design.widget.BottomNavigationView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:id="@+id/navBot"
+        android:layout_gravity="bottom"
+        design:menu="@menu/navigation"
+        />
+</android.support.design.widget.CoordinatorLayout>

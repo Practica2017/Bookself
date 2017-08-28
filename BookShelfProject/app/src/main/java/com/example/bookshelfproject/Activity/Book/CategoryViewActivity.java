@@ -17,8 +17,10 @@ import android.widget.SimpleAdapter;
 import com.example.bookshelfproject.Activity.Book.BookProfile.BookProfileActivity;
 import com.example.bookshelfproject.Activity.Messages.ConversationsActivity;
 import com.example.bookshelfproject.Activity.User.LoginActivity;
+import com.example.bookshelfproject.Activity.User.MyProfileActivity;
 import com.example.bookshelfproject.Activity.User.UsersActivity;
 import com.example.bookshelfproject.Model.Book;
+import com.example.bookshelfproject.Model.User;
 import com.example.bookshelfproject.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -47,11 +49,21 @@ public class CategoryViewActivity extends AppCompatActivity {
     private ArrayAdapter adapter;
     private ArrayList<String> bookTitles = new ArrayList<>();
     private ArrayList<Book> bestBooks = new ArrayList<>();
+    private FirebaseAuth firebaseAuth;
+    private String currentUserId;
+    private User user;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        database = FirebaseDatabase.getInstance();
+        databaseReference = database.getReference();
+
+        currentUserId = firebaseAuth.getCurrentUser().getUid();
+        setCurrentUser(databaseReference);
+
         setContentView(R.layout.categories_activity);
         overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.navBot);
@@ -69,9 +81,8 @@ public class CategoryViewActivity extends AppCompatActivity {
                                 startActivity(new Intent(CategoryViewActivity.this, ConversationsActivity.class));
                                 break;
 
-                            case R.id.navigation_logout:
-                                firebaseAuth.signOut();
-                                startActivity(new Intent(CategoryViewActivity.this, LoginActivity.class));
+                            case R.id.navigation_profile:
+                                startActivity(new Intent(CategoryViewActivity.this, MyProfileActivity.class));
                                 finish();
                                 break;
                             case R.id.navigation_home:
@@ -89,8 +100,7 @@ public class CategoryViewActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.listview);
 
 
-        database = FirebaseDatabase.getInstance();
-        databaseReference = database.getReference();
+
 
         addBestBooks(databaseReference);
 
@@ -100,6 +110,7 @@ public class CategoryViewActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), BookProfileActivity.class);
                 Gson gson = new Gson();
                 intent.putExtra("selected_book", gson.toJson(bestBooks.get(position)));
+                intent.putExtra("user", gson.toJson(user));
                 startActivity(intent);
             }
         });
@@ -156,5 +167,19 @@ public class CategoryViewActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void setCurrentUser(DatabaseReference databaseReference){
+        databaseReference.child("users").child(currentUserId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                user = dataSnapshot.getValue(User.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 }

@@ -16,6 +16,7 @@ import android.widget.ListView;
 import com.example.bookshelfproject.Activity.Messages.ChatActivity;
 import com.example.bookshelfproject.Activity.Messages.ConversationsActivity;
 import com.example.bookshelfproject.Activity.User.LoginActivity;
+import com.example.bookshelfproject.Activity.User.MyProfileActivity;
 import com.example.bookshelfproject.Activity.User.UsersActivity;
 import com.example.bookshelfproject.Model.Book;
 import com.example.bookshelfproject.R;
@@ -66,9 +67,8 @@ public class CategoriesActivity extends AppCompatActivity {
                                 startActivity(new Intent(CategoriesActivity.this, ConversationsActivity.class));
                                 break;
 
-                            case R.id.navigation_logout:
-                                firebaseAuth.signOut();
-                                startActivity(new Intent(CategoriesActivity.this, LoginActivity.class));
+                            case R.id.navigation_profile:
+                                startActivity(new Intent(CategoriesActivity.this, MyProfileActivity.class));
                                 finish();
                                 break;
                             case R.id.navigation_home:

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -22,7 +21,7 @@ import com.google.gson.Gson;
  * Created by Iulia on 8/17/2017.
  */
 
-public class User_Profile extends AppCompatActivity {
+public class UserProfileActivity extends AppCompatActivity {
     private TextView textViewUsername;
     private TextView textViewEmail;
     private ImageView imageViewPictureProfile;
@@ -72,7 +71,7 @@ public class User_Profile extends AppCompatActivity {
         readBooksButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(User_Profile.this,ReadBooksActivity.class);
+                Intent intent = new Intent(UserProfileActivity.this,ReadBooksActivity.class);
                 Gson gson = new Gson();
                 intent.putExtra("userToChat", gson.toJson(userToChat));
                 startActivity(intent);
