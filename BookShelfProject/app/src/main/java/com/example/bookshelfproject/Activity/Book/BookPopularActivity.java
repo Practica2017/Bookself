@@ -148,7 +148,7 @@ public class BookPopularActivity extends Activity {
                 }
 
 
-                Collections.reverse(bestBooks);
+               // Collections.reverse(bestBooks);
 
 
                 for (i = 0; i <bestBooks.size() ; i++) {

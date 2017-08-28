@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bookshelfblog"
     android:orientation="vertical">
 
     <TextView
@@ -63,16 +62,5 @@
         android:background="@android:drawable/btn_default"
         android:text="Read books" />
 
-    <ImageView
-        android:id="@+id/imageViewLogo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/viewReadBooksButton"
-        android:layout_marginBottom="20dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginTop="20dp"
-        android:scaleType="fitXY"
-        app:srcCompat="@drawable/header" />
 
 </RelativeLayout>
